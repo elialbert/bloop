@@ -49,9 +49,13 @@ export default {
   margin-bottom: 8px;
 }
 
+.landing-header {
+  height: 30px;
+  line-height: 30px;
+}
+
 @media (min-width: 480px) {
   .landing-header {
-    max-height: 120px;
     background-color: #D8BFD8;
     color: black;
     padding: 4px;
@@ -64,7 +68,6 @@ export default {
 }
 @media (max-width: 480px) {
   .landing-header {
-    max-height: 200px;
     background-color: gray;
     color: white;
     padding: 4px;
