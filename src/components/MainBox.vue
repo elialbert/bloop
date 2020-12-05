@@ -90,12 +90,12 @@ export default {
 
 <style>
 #mainbox-inner {
-  height: 80vmin;
-  width: 80vmin;
+  height: 80vh;
+  width: 80vh;
   height: 80vm;
   width: 80vm;
-  max-width: 800px;
-  max-height: 800px;
+  /* max-width: 800px;
+  max-height: 800px; */
   border: 4px solid black;
   display: flex;
   flex-direction: row;
@@ -111,11 +111,17 @@ export default {
   }
 }
 @media (max-width: 480px) {
+  #mainbox-inner {
+    height: 80vh;
+    width: 40vh;
+  }
+
   .centered {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
 }
 </style>

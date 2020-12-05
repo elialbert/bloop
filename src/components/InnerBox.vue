@@ -1,7 +1,7 @@
 <template>
-    <div class="innerBox" 
+    <div class="innerBox"
       @mouseleave="selected = false"
-      :class="{ selected: selected, enabled: state > 0, ['enabled' + state]: true}" 
+      :class="{ selected: selected, enabled: state > 0, ['enabled' + state]: true}"
       @mouseover="hoverClick" @click="click" @mousedown="mouseDown"
     >
   </div>
@@ -21,7 +21,7 @@ export default {
     }
   },
   methods: {
-    mouseDown: function (event) {
+    mouseDown: function () {
       let newDrawMode = parseInt(this.state || 0) > 0
       this.$emit('innerClick', this.m, this.n, this.state || 0, newDrawMode)
     },
@@ -51,10 +51,10 @@ export default {
 
 <style>
 .innerBox {
-  width: 33.33333333%; 
+  width: 33.33333333%;
   height: 33.33333333%;
-  border: black 1px solid; 
-  box-sizing: border-box;  
+  border: black 1px solid;
+  box-sizing: border-box;
 }
 .innerBox .selected {
   background-color: yellow;
