@@ -112,8 +112,8 @@ export default {
 }
 @media (max-width: 480px) {
   #mainbox-inner {
-    height: 80vh;
-    width: 40vh;
+    height: 70vh;
+    width: 80vw;
   }
 
   .centered {
