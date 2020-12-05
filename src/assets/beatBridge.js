@@ -3,6 +3,9 @@ import Tonal from 'tonal'
 import soundBridge from './soundBridge.js'
 
 var startTransport = function () {
+  if (Tone.context.state !== 'running') {
+    Tone.context.resume();
+  }
   Tone.Transport.start()
 }
 
