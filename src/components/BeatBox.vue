@@ -1,11 +1,13 @@
 <template>
   <div class="beatbox"
     v-bind:class="{ playing: playing == n - 1 }"
+    @touchmove="touchMove"
   >
     <div class="innerBoxWrapper">
       <inner-box v-for="m in 9" v-bind:ref="'innerbox_' + (m-1)"
-        :m="m" :n="n" v-bind:key="m"
+        :m="m" :n="n" v-bind:key="m" :draggingState="draggingState"
         @innerClick="innerClick"
+        @setDraggingState="setDraggingState"
         :dataArray="dataArray"
         :drawMode="drawMode"
       ></inner-box>
@@ -29,7 +31,9 @@ export default {
     return {
       verticalSlider: {value: 50},
       horizontalSlider: 0,
-      sliderStyle: {position: 'absolute'}
+      sliderStyle: {position: 'absolute'},
+      draggingState: 0,
+      lastTouched: null
     }
   },
   mounted: function () {
@@ -39,6 +43,10 @@ export default {
   computed: {
   },
   methods: {
+    setDraggingState: function(ds) {
+      this.draggingState = ds
+      this.lastTouched = null;
+    },
     innerClick: function (m, n, state, drawMode) {
       let total = 0
       for (let ref of Object.values(this.$refs)) {
@@ -51,6 +59,18 @@ export default {
     },
     doSlider: function (v) {
       this.$emit('innerClick', 0, this.n, v)
+    },
+    touchMove: function(e) {
+      var xPos = e.touches[0].pageX;
+      var yPos = e.touches[0].pageY;
+
+      let touchedEl = document.elementFromPoint(xPos, yPos)
+      if (touchedEl !== this.lastTouched) {
+        if (((touchedEl || {}).__vue__ || {}).click) {
+          touchedEl.__vue__.click()
+          this.lastTouched = touchedEl
+        }
+      }
     }
   }
 }

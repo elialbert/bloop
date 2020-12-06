@@ -3,6 +3,7 @@
       @mouseleave="selected = false"
       :class="{ selected: selected, enabled: state > 0, ['enabled' + state]: true}"
       @mouseover="hoverClick" @click="click" @mousedown="mouseDown" @mouseup="mouseUp"
+      @touchstart="touchStart"  @touchend="touchEnd"
     >
   </div>
 </template>
@@ -11,37 +12,32 @@
 // handles inner square states
 export default {
   name: 'inner-box',
-  props: ['n', 'm', 'drawMode'],
+  props: ['n', 'm', 'drawMode', 'draggingState'],
   components: {
   },
   data: function () {
     return {
       selected: false,
-      state: 0,
-      draggingState: 0
+      state: 0
     }
   },
   methods: {
 
     mouseUp: function() {
-      console.log('in up', this.draggingState)
-      this.draggingState = 0
+      this.$emit('setDraggingState', 0)
     },
 
     mouseDown: function () {
       let newDrawMode = parseInt(this.state || 0) > 0
       this.$emit('innerClick', this.m, this.n, this.state || 0, newDrawMode)
-      this.draggingState = this.state
-      console.log('mousedown with ', this.state, this.draggingState)
+      this.$emit('setDraggingState', this.state)
     },
     click: function (event) {
       let newDrawMode = null
-      console.log('in click', event, this.state, this.draggingState)
       if (event) {
         newDrawMode = parseInt(this.state || 0) > 0
         this.state = ((this.state || 0) + 1) % 10
       } else {
-        console.log('in else', this.draggingState)
         if (this.drawMode) {
           this.state = ((this.draggingState || this.state || 0) + 1) % 10
         } else {
@@ -51,11 +47,21 @@ export default {
       this.$emit('innerClick', this.m, this.n, this.state, newDrawMode)
     },
     hoverClick: function (event) {
-      console.log('hoverclock', this.draggingState)
       this.selected = true
       if (event.buttons === 1 || event.which === 1) {
         this.click(false)
       }
+    },
+
+    touchStart: function() {
+      this.$emit('setDraggingState', this.state)
+      // sets up whether we are drawing or not on the parent components
+      let newDrawMode = parseInt(this.state || 0) > 0
+      this.$emit('innerClick', this.m, this.n, this.state, newDrawMode)
+    },
+
+    touchEnd: function() {
+      this.$emit('setDraggingState', 0)
     }
   }
 }

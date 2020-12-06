@@ -11,6 +11,10 @@ if (process.env.NODE_ENV === 'production') {
       .install()
 }
 
+// document.ontouchmove = function (e) {
+//   e.preventDefault();
+// }
+
 import App from './App'
 import './assets/firebaseui.css'
 import './assets/globalstyles.css'
