@@ -87,7 +87,7 @@ var makeLoop = function (dataFunc, numCols) {
   }).toDestination();
 
   const bellPart = new Tone.Sequence(((time, freq) => {
-    bell.triggerAttack(freq, time, Math.random()*0.5 + 0.5);
+    bell.triggerAttack(freq, time, 0);
     dataFunc(time, freq)
   }), la, '16n')
   return bellPart

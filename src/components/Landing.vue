@@ -74,11 +74,13 @@ export default {
       this.$refs.mainbox.soundToggle(soundState)
     },
     innerClick: function (m, n, state) {
+      // console.log('landing, ', m, n, state)
       let clickData = beatUtils.landingClick(this.dataArray, m, n, state)
       let objs = clickData[0]
       let instrs = clickData[1]
       let beat = clickData[2]
       let triplet = clickData[3]
+      console.log(clickData)
       for (let i = 0; i < instrs.length; i++) {
         let instr = instrs[i]
         let obj = objs[i]

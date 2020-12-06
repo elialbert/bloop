@@ -148,12 +148,31 @@ var transposeBeat = function (data, newKey, oldKey) {
   return data
 }
 
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
 var transposeNote = function (note, direction) {
   let intervals
   if (direction === 'up') {
-    intervals = ['P15', 'P8', 'P1']
+    intervals = shuffle(['P15', 'P8', 'P1'])
   } else {
-    intervals = ['P-15', 'P-8', 'P1']
+    intervals = shuffle(['P-15', 'P-8', 'P1'])
   }
   for (let interval of intervals) {
     let attempt = Tonal.transpose(note, interval)
@@ -188,6 +207,7 @@ var noteFromScale = function (noteNum) {
   let notes = Tonal.scale('c minor blues')
   let choice = notes[noteNum % notes.length]
   let note = choice + 3
+  console.log(note)
   return doTransposeForInstrument(note, 1)
 }
 
