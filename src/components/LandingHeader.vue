@@ -43,21 +43,21 @@ export default {
 <style>
 
 .goButton {
-  background-color: #32CD32;
-  color: white;
+  background-color: white;
+  color:black;
   font-size: 1em;
-  margin-bottom: 8px;
+  border-radius: 4px;
 }
 
 .landing-header {
-  height: 30px;
-  line-height: 30px;
+  height: 50px;
+  line-height: 50px;
+  background-color: gray;
+  color: white;
 }
 
 @media (min-width: 480px) {
   .landing-header {
-    background-color: #D8BFD8;
-    color: black;
     padding: 4px;
     margin-bottom: 20px;
     display: flex;
@@ -68,8 +68,6 @@ export default {
 }
 @media (max-width: 480px) {
   .landing-header {
-    background-color: gray;
-    color: white;
     padding: 4px;
     margin-bottom: 20px;
     /*display: flex;

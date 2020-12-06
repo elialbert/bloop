@@ -2,7 +2,7 @@
     <div class="innerBox"
       @mouseleave="selected = false"
       :class="{ selected: selected, enabled: state > 0, ['enabled' + state]: true}"
-      @mouseover="hoverClick" @click="click" @mousedown="mouseDown"
+      @mouseover="hoverClick" @click="click" @mousedown="mouseDown" @mouseup="mouseUp"
     >
   </div>
 </template>
@@ -17,22 +17,33 @@ export default {
   data: function () {
     return {
       selected: false,
-      state: 0
+      state: 0,
+      draggingState: 0
     }
   },
   methods: {
+
+    mouseUp: function() {
+      console.log('in up', this.draggingState)
+      this.draggingState = 0
+    },
+
     mouseDown: function () {
       let newDrawMode = parseInt(this.state || 0) > 0
       this.$emit('innerClick', this.m, this.n, this.state || 0, newDrawMode)
+      this.draggingState = this.state
+      console.log('mousedown with ', this.state, this.draggingState)
     },
     click: function (event) {
       let newDrawMode = null
+      console.log('in click', event, this.state, this.draggingState)
       if (event) {
         newDrawMode = parseInt(this.state || 0) > 0
         this.state = ((this.state || 0) + 1) % 10
       } else {
+        console.log('in else', this.draggingState)
         if (this.drawMode) {
-          this.state = ((this.state || 0) + 1) % 10
+          this.state = ((this.draggingState || this.state || 0) + 1) % 10
         } else {
           this.state = 0
         }
@@ -40,6 +51,7 @@ export default {
       this.$emit('innerClick', this.m, this.n, this.state, newDrawMode)
     },
     hoverClick: function (event) {
+      console.log('hoverclock', this.draggingState)
       this.selected = true
       if (event.buttons === 1 || event.which === 1) {
         this.click(false)

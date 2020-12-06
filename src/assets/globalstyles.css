@@ -5,3 +5,9 @@
 button.selected {
   font-weight: 900;
 }
+
+#app {
+  overflow: hidden;
+  position: fixed;
+  width: 100vw;
+}
