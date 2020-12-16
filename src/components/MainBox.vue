@@ -112,7 +112,7 @@ export default {
 }
 @media (max-width: 480px) {
   #mainbox-inner {
-    height: 70vh;
+    height: 60vh;
     width: 80vw;
   }
 
